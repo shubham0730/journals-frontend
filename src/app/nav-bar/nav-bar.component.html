@@ -1,58 +1,51 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-    <div class="container">
-      <!-- Logo -->
-      <a class="navbar-brand d-flex align-items-center" href="#">
-        <!-- <img src="assets/logo.png" alt="Nanavati Max Super Speciality Hospital Logo" height="40" class="me-2"> -->
-        <span class="fw-bold text-danger">Journals</span>
-      </a>
-  
-      <!-- Mobile Toggle -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-  
-      <!-- Nav Items -->
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="homeDropdown" role="button" data-bs-toggle="dropdown">Home</a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Submenu 1</a></li>
-              <li><a class="dropdown-item" href="#">Submenu 2</a></li>
-            </ul>
+  <div class="container">
+    <!-- Logo -->
+    <a class="navbar-brand d-flex align-items-center" href="#">
+      <span class="fw-bold text-danger">Journals</span>
+    </a>
+
+    <!-- Mobile Toggle -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Nav Items -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" routerLink="/">Home</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/current-issue">Current Issue</a></li>
+
+        <!-- Publications Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="publicationsDropdown" role="button" data-bs-toggle="dropdown">Publications</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" routerLink="/journals">Journals</a></li>
+            <li><a class="dropdown-item" routerLink="/conferences">Conferences</a></li>
+          </ul>
+        </li>
+
+        <!-- Profile Icon (Conditionally Rendered) -->
+        <li class="nav-item" *ngIf="isLoggedIn; else loginOption">
+          <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown">
+            <img src="assets/user.svg" alt="Login Icon" class="icon">
+          </a>
+          <ul class="dropdown-menu">
+            <li><span class="dropdown-item">Profile</span></li>
+            <li><a class="dropdown-item" routerLink="/my-publications">My Publications</a></li>
+            <li><a class="dropdown-item text-danger" (click)="logout()">Logout</a></li>
+          </ul>
+        </li>
+
+        <!-- If Not Logged In -->
+        <ng-template #loginOption>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/login">
+              <img src="assets/user.svg" alt="Login Icon" class="icon"> 
+            </a>
           </li>
-          <li class="nav-item"><a class="nav-link" href="#">Current Issue</a></li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="peopleDropdown" role="button" data-bs-toggle="dropdown">People</a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Team</a></li>
-              <li><a class="dropdown-item" href="#">Collaborators</a></li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="publicationsDropdown" role="button" data-bs-toggle="dropdown">Publications</a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Journals</a></li>
-              <li><a class="dropdown-item" href="#">Conferences</a></li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="eventsDropdown" role="button" data-bs-toggle="dropdown">Events</a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Workshops</a></li>
-              <li><a class="dropdown-item" href="#">Conferences</a></li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="blogDropdown" role="button" data-bs-toggle="dropdown">Blog</a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Latest Posts</a></li>
-            </ul>
-          </li>
-          
-        </ul>
-  
-      </div>
+        </ng-template>
+      </ul>
     </div>
-  </nav>
-  
+  </div>
+</nav>
