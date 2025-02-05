@@ -10,6 +10,13 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './authentication/register/register.component';
 import { ProfileComponent } from './authentication/profile/profile.component';
 import { AuthorInfoComponent } from './pages/author-info/author-info.component';
+import { EditorialBoardComponent } from './editorial-board/editorial-board.component';
+import { DynamicTableComponent } from './dynamic-table/dynamic-table.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -21,11 +28,18 @@ import { AuthorInfoComponent } from './pages/author-info/author-info.component';
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
-    AuthorInfoComponent
+    AuthorInfoComponent,
+    EditorialBoardComponent,
+    DynamicTableComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatCheckboxModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

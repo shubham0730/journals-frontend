@@ -1,0 +1,34 @@
+<div class="editorial-container">
+    <h2 class="fw-bold text-danger">Editorial Board</h2>
+  
+    <hr>
+  
+    <!-- Editor in Chief Section -->
+    <div class="section">
+      <h4>Editor in Chief</h4>
+      <p><strong>{{ editorialBoard[0].name }}</strong></p>
+      <p>{{ editorialBoard[0].designation }}</p>
+      <p>Email: {{ editorialBoard[0].email }}</p>
+    </div>
+  
+    <!-- Associate Editors Section -->
+    <div class="section">
+      <h4>Associate Editors</h4>
+      <ul>
+        <li *ngFor="let editor of associateEditors">
+          {{ editor.name }} - {{ editor.designation }}
+        </li>
+      </ul>
+    </div>
+  
+    <!-- Editorial Committee Section -->
+    <div class="section">
+      <h4>Editorial Committee</h4>
+      <ul>
+        <li *ngFor="let committee of editorialCommittee">
+          {{ committee.name }} - {{ committee.designation }}
+        </li>
+      </ul>
+    </div>
+  </div>
+  
