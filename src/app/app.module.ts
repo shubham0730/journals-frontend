@@ -9,6 +9,7 @@ import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './authentication/register/register.component';
 import { ProfileComponent } from './authentication/profile/profile.component';
+import { AuthorInfoComponent } from './pages/author-info/author-info.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { ProfileComponent } from './authentication/profile/profile.component';
     FooterComponent,
     LoginComponent,
     RegisterComponent,
-    ProfileComponent
+    ProfileComponent,
+    AuthorInfoComponent
   ],
   imports: [
     BrowserModule,
