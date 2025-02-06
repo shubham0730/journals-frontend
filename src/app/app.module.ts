@@ -17,6 +17,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
+import { AboutJournalComponent } from './pages/about-journal/about-journal.component';
+import { LoginPageComponent } from './authentication/login-page/login-page.component';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { FormsModule } from '@angular/forms';
     ProfileComponent,
     AuthorInfoComponent,
     EditorialBoardComponent,
-    DynamicTableComponent
+    DynamicTableComponent,
+    AboutJournalComponent,
+    LoginPageComponent
   ],
   imports: [
     BrowserModule,
