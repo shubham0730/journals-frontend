@@ -19,6 +19,7 @@ import { FormsModule } from '@angular/forms';
 import { AboutJournalComponent } from './pages/about-journal/about-journal.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './services/auth.interceptor';
+import { AfiliatedSocietyComponent } from './pages/afiliated-society/afiliated-society.component';
  // ✅ Import this
 
 
@@ -34,7 +35,8 @@ import { AuthInterceptor } from './services/auth.interceptor';
     EditorialBoardComponent,
     DynamicTableComponent,
     AboutJournalComponent,
-    LoginComponent
+    LoginComponent,
+    AfiliatedSocietyComponent
     ],
   imports: [
     BrowserModule,
