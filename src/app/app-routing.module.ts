@@ -9,6 +9,7 @@ import { DynamicTableComponent } from './dynamic-table/dynamic-table.component';
 import { AboutJournalComponent } from './pages/about-journal/about-journal.component';
 import { LoginComponent } from './authentication/login-page/login-page.component';
 import { AfiliatedSocietyComponent } from './pages/afiliated-society/afiliated-society.component';
+import { DummySubmitComponent } from './dummy-submit/dummy-submit.component';
 
 const routes: Routes = [
   {path: '', component: HomeScreenComponent},
@@ -20,6 +21,7 @@ const routes: Routes = [
   // {path: 'dynamic-table', component: DynamicTableComponent},
   {path: 'journal-info/about-journal', component: AboutJournalComponent},
   {path: 'journal-info/affiliated-society', component:AfiliatedSocietyComponent},
+  {path:'dummy-submit', component:DummySubmitComponent},
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 

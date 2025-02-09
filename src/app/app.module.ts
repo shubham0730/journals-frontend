@@ -20,6 +20,7 @@ import { AboutJournalComponent } from './pages/about-journal/about-journal.compo
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './services/auth.interceptor';
 import { AfiliatedSocietyComponent } from './pages/afiliated-society/afiliated-society.component';
+import { DummySubmitComponent } from './dummy-submit/dummy-submit.component';
  // ✅ Import this
 
 
@@ -36,7 +37,8 @@ import { AfiliatedSocietyComponent } from './pages/afiliated-society/afiliated-s
     DynamicTableComponent,
     AboutJournalComponent,
     LoginComponent,
-    AfiliatedSocietyComponent
+    AfiliatedSocietyComponent,
+    DummySubmitComponent
     ],
   imports: [
     BrowserModule,
