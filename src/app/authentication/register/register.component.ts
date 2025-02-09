@@ -38,8 +38,7 @@ export class RegisterComponent implements OnInit {
 
     this.authService.register(user).subscribe(
       (response) => {
-        this.authService.storeTokens(response.access_token, response.refresh_token);
-        this.router.navigate(['/']); // Redirect to profile upon success
+        this.router.navigate(['/login']); // Redirect to login upon success
       },
       (error) => {
         console.error('Registration failed:', error);

@@ -20,7 +20,8 @@ export class LoginComponent implements OnInit {
   
     this.authService.login(credentials).subscribe(
       (response) => {
-        this.authService.storeTokens(response.access_token, response.refresh_token);
+        const isLoggedIn = true;
+        this.authService.storeTokens(response.messages.codes[0].Desc.access_token, response.messages.codes[0].Desc.refresh_token,isLoggedIn,credentials.userEmail);
         this.router.navigate(['/']); // Redirect to home screen
       },
       (error) => {

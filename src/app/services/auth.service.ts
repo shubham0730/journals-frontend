@@ -27,9 +27,19 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/login`, credentials,{ headers, withCredentials: true });
   }
 
-  storeTokens(accessToken: string, refreshToken: string) {
+  logout(): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    sessionStorage.clear();
+    return this.http.post(`${this.apiUrl}/logout`,{ headers, withCredentials: true });
+  }
+
+  storeTokens(accessToken: string, refreshToken: string, isLoggedIn: any,userEmail:string) {
     sessionStorage.setItem('access_token', accessToken);
     sessionStorage.setItem('refresh_token', refreshToken);
+    sessionStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
+    sessionStorage.setItem('userEmail', userEmail);
   }
 
   getAccessToken(): string | null {
@@ -40,7 +50,4 @@ export class AuthService {
     return sessionStorage.getItem('refresh_token');
   }
 
-  logout() {
-    sessionStorage.clear(); // Clear tokens on logout
-  }
 }
