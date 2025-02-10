@@ -22,7 +22,7 @@
           <a class="nav-link dropdown-toggle" href="#" id="publicationsDropdown" role="button" data-bs-toggle="dropdown">For Authors</a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" routerLink="/author/info">Information for Authors</a></li>
-            <li><a class="dropdown-item" routerLink="/conferences">Submit a Manuscript</a></li>
+            <li><a class="dropdown-item" routerLink="/upload-manuscript">Submit a Manuscript</a></li>
           </ul>
         </li>
         <li class="nav-item"><a class="nav-link" routerLink="/current-issue">Published Ahead of Print</a></li>
@@ -43,7 +43,7 @@
         <!-- Profile Icon (Conditionally Rendered) -->
         <li class="nav-item" *ngIf="isLoggedIn; else loginOption">
           <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown">
-            <img src="assets/user.svg" alt="Login Icon" class="icon">
+            <img src="assets/user.svg" alt="Login" class="icon">
           </a>
           <ul class="dropdown-menu">
             <li><span class="dropdown-item">Profile</span></li>

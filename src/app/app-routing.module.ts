@@ -10,6 +10,7 @@ import { AboutJournalComponent } from './pages/about-journal/about-journal.compo
 import { LoginComponent } from './authentication/login-page/login-page.component';
 import { AfiliatedSocietyComponent } from './pages/afiliated-society/afiliated-society.component';
 import { DummySubmitComponent } from './dummy-submit/dummy-submit.component';
+import { UploadManuscriptComponent } from './upload-manuscript/upload-manuscript.component';
 
 const routes: Routes = [
   {path: '', component: HomeScreenComponent},
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path: 'journal-info/about-journal', component: AboutJournalComponent},
   {path: 'journal-info/affiliated-society', component:AfiliatedSocietyComponent},
   {path:'dummy-submit', component:DummySubmitComponent},
+  {path: 'upload-manuscript', component: UploadManuscriptComponent},
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 

@@ -21,6 +21,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './services/auth.interceptor';
 import { AfiliatedSocietyComponent } from './pages/afiliated-society/afiliated-society.component';
 import { DummySubmitComponent } from './dummy-submit/dummy-submit.component';
+import { UploadManuscriptComponent } from './upload-manuscript/upload-manuscript.component';
  // ✅ Import this
 
 
@@ -38,7 +39,8 @@ import { DummySubmitComponent } from './dummy-submit/dummy-submit.component';
     AboutJournalComponent,
     LoginComponent,
     AfiliatedSocietyComponent,
-    DummySubmitComponent
+    DummySubmitComponent,
+    UploadManuscriptComponent
     ],
   imports: [
     BrowserModule,
