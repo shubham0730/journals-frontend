@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8081/auth'; // Your Spring Boot API Base URL
+  private apiUrl = 'http://localhost:8081'; // Your Spring Boot API Base URL
 
   constructor(private http: HttpClient) {}
 
@@ -16,7 +16,7 @@ export class AuthService {
       'Content-Type': 'application/json'
     });
 
-    return this.http.post(`${this.apiUrl}/register`, user, { headers});
+    return this.http.post(`${this.apiUrl}/auth/register`, user, { headers});
   }
 
   // Login User
@@ -24,7 +24,7 @@ export class AuthService {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-    return this.http.post(`${this.apiUrl}/login`, credentials,{ headers, withCredentials: true });
+    return this.http.post(`${this.apiUrl}/auth/login`, credentials,{ headers});
   }
 
   logout(): Observable<any> {
@@ -32,7 +32,7 @@ export class AuthService {
       'Content-Type': 'application/json'
     });
     sessionStorage.clear();
-    return this.http.post(`${this.apiUrl}/logout`,{ headers, withCredentials: true });
+    return this.http.post(`${this.apiUrl}/auth/logout`,{ headers, withCredentials: true });
   }
 
   storeTokens(accessToken: string, refreshToken: string, isLoggedIn: any,userEmail:string) {
@@ -52,6 +52,9 @@ export class AuthService {
 
 
   uploadPaper(file: File): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
     const formData = new FormData();
     formData.append("file", file);
     return this.http.post(`${this.apiUrl}/papers/upload`, formData);
