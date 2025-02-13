@@ -96,7 +96,7 @@ export class UploadManuscriptComponent implements OnInit {
 
   saveAndContinue() {
     console.log('Saving files:', this.uploadedFiles);
-    // Implement save functionality
+    this.router.navigate(['/submit-manuscript/details']);
   }
 
   returnHome(){

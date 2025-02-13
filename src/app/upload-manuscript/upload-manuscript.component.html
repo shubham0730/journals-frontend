@@ -71,12 +71,6 @@
               <button (click)="previewFile(file)" title="Preview">
                 <img src="assets/preview.svg" alt="preview" class="icon" style="height: 16px; width: 18px;">
               </button>
-              <button (click)="downloadFile(file)" title="Download">
-                <img src="assets/download.svg" alt="download" class="icon" style="height: 16px; width: 18px;">
-              </button>
-              <button (click)="updateFile(file)" title="Update">
-                <img src="assets/edit.svg" alt="edit" class="icon" style="height: 16px; width: 18px;">
-              </button>
               <button (click)="deleteFile(file)" title="Delete">
                 <img src="assets/delete.svg" alt="delete" class="icon" style="height: 16px; width: 18px;">
               </button>
@@ -88,6 +82,6 @@
 
     <div class="button-container">
       <button class="exit-btn" (click)="returnHome()"  >EXIT</button>
-      <button class="save-btn" (click)="saveAndContinue()">SAVE AND CONTINUE</button>
+      <button class="btn btn-danger" (click)="saveAndContinue()">SAVE AND CONTINUE</button>
     </div>
   </div>

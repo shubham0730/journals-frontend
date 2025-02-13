@@ -11,6 +11,9 @@ import { LoginComponent } from './authentication/login-page/login-page.component
 import { AfiliatedSocietyComponent } from './pages/afiliated-society/afiliated-society.component';
 import { DummySubmitComponent } from './dummy-submit/dummy-submit.component';
 import { UploadManuscriptComponent } from './upload-manuscript/upload-manuscript.component';
+import { SubmitManuscriptDetailsComponent } from './submit-manuscript-details/submit-manuscript-details.component';
+import { SubmitManuscriptInstitutionDetailsComponent } from './submit-manuscript-institution-details/submit-manuscript-institution-details.component';
+import { CompleteSubmitComponent } from './complete-submit/complete-submit.component';
 
 const routes: Routes = [
   {path: '', component: HomeScreenComponent},
@@ -23,7 +26,10 @@ const routes: Routes = [
   {path: 'journal-info/about-journal', component: AboutJournalComponent},
   {path: 'journal-info/affiliated-society', component:AfiliatedSocietyComponent},
   {path:'dummy-submit', component:DummySubmitComponent},
-  {path: 'upload-manuscript', component: UploadManuscriptComponent},
+  {path: 'submit-manuscript/upload', component: UploadManuscriptComponent},
+  {path: 'submit-manuscript/details', component: SubmitManuscriptDetailsComponent},
+  {path: 'submit-manuscript/institutional-details', component: SubmitManuscriptInstitutionDetailsComponent},
+  {path:'submit-manuscript/complete-submission', component:CompleteSubmitComponent},
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 
