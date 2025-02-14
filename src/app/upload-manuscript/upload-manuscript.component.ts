@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { UploadPaperService } from '../services/upload-paper.service';
 
 interface UploadedFile {
   id: number;
@@ -8,26 +9,25 @@ interface UploadedFile {
   legend: string;
   fileSize: string;
   fileOrder: number;
+  fileData?: File; // Store actual file
 }
 
 @Component({
   selector: 'app-upload-manuscript',
   templateUrl: './upload-manuscript.component.html',
-  styleUrls: ['./upload-manuscript.component.scss']
+  styleUrls: ['./upload-manuscript.component.scss'],
 })
-
-
 export class UploadManuscriptComponent implements OnInit {
-
-  constructor(private router: Router) { }
+  @ViewChild('fileInput') fileInput!: ElementRef;
 
   uploadedFiles: UploadedFile[] = [];
 
-  ngOnInit() {
-    // Initialize with sample data
-    
-      
-  }
+  constructor(
+    private router: Router,
+    private uploadService: UploadPaperService
+  ) {}
+
+  ngOnInit() {}
 
   onDragOver(event: DragEvent) {
     event.preventDefault();
@@ -51,7 +51,6 @@ export class UploadManuscriptComponent implements OnInit {
   }
 
   handleFile(file: File) {
-    // Check if file is a Word document
     if (!file.name.match(/\.(doc|docx)$/)) {
       alert('Please upload only Word documents (.doc or .docx)');
       return;
@@ -63,7 +62,8 @@ export class UploadManuscriptComponent implements OnInit {
       fileType: '',
       legend: '',
       fileSize: this.formatFileSize(file.size),
-      fileOrder: 1
+      fileOrder: this.uploadedFiles.length + 1,
+      fileData: file,
     };
 
     this.uploadedFiles.push(newFile);
@@ -77,30 +77,69 @@ export class UploadManuscriptComponent implements OnInit {
 
   previewFile(file: UploadedFile) {
     console.log('Preview file:', file);
-    // Implement preview functionality
   }
 
   downloadFile(file: UploadedFile) {
     console.log('Download file:', file);
-    // Implement download functionality
   }
 
   updateFile(file: UploadedFile) {
     console.log('Update file:', file);
-    // Implement update functionality
   }
 
   deleteFile(file: UploadedFile) {
-    this.uploadedFiles = this.uploadedFiles.filter(f => f.id !== file.id);
+    this.uploadedFiles = this.uploadedFiles.filter((f) => f.id !== file.id);
   }
 
   saveAndContinue() {
+    if (this.uploadedFiles.length === 0) {
+      alert('Please upload at least one file before proceeding.');
+      return;
+    }
+
+    const files: File[] = this.uploadedFiles
+      .map((f) => f.fileData)
+      .filter((file): file is File => file !== undefined);
+
+    if (files.some((file) => !(file instanceof File))) {
+      alert('Some file data is invalid.');
+      return;
+    }
+    if (files.some((file) => !file || !(file instanceof File))) {
+      alert('Some file data is missing or invalid.');
+      return;
+    }
+
+    const metadata = this.uploadedFiles.map((file) => ({
+      // title: file.title || "Untitled",
+      // author: file.author || "Unknown",
+      // abstractText: file.abstractText || "No abstract available",
+      // allAuthors: file.allAuthors || ""
+      title: 'Untitled',
+      author: 'Unknown',
+      abstractText: 'No abstract available',
+      allAuthors: '',
+    }));
+
+    const formData = new FormData();
+    files.forEach((file) => formData.append('files', file));
+    formData.append('metadata', JSON.stringify(metadata));
+
+    this.uploadService.uploadPapers(formData).subscribe(
+      (response) => {
+        console.log('Upload successful:', response);
+        alert('Files uploaded successfully!');
+        this.router.navigate(['/submit-manuscript/details']);
+      },
+      (error) => {
+        console.error('Upload error:', error);
+        alert('Upload failed. Please try again.');
+      }
+    );
+  }
+
+  returnHome() {
     console.log('Saving files:', this.uploadedFiles);
     this.router.navigate(['/submit-manuscript/details']);
   }
-
-  returnHome(){
-    this.router.navigate(['/home']);
-  }
-
 }

@@ -61,18 +61,23 @@
   }
 
   .actions button {
-    margin: 0 5px;
-    background: none;
+    font-size: 12px; /* Adjust font size */
+    padding: 4px 6px; /* Adjust padding */
     border: none;
+    background: none;
     cursor: pointer;
   }
-
-  .button-container {
-    margin-top: 20px;
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
+  
+  .actions button img {
+    width: 14px; /* Adjust icon size */
+    height: 14px;
   }
+
+  .button-container button {
+    font-size: 14px; /* Adjust as needed */
+    padding: 8px 16px; /* Adjust padding if necessary */
+  }
+  
 
   .exit-btn {
     background-color: #6c757d;

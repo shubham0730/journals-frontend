@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AuthService } from './auth.service';
+import { UploadPaperService } from './upload-paper.service';
 
-describe('AuthService', () => {
-  let service: AuthService;
+describe('UploadPaperService', () => {
+  let service: UploadPaperService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(AuthService);
+    service = TestBed.inject(UploadPaperService);
   });
 
   it('should be created', () => {

@@ -1,7 +1,26 @@
-<div class="wrapper">
-<app-nav-bar></app-nav-bar>
-<div class="content">
-    <router-outlet></router-outlet> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Import Google Font (Roboto) -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+
+  <!-- Other meta tags or links go here -->
+</head>
+<body>
+  <div class="wrapper">
+    <!-- Navbar -->
+    <app-nav-bar></app-nav-bar>
+
+    <!-- Content -->
+    <div class="content">
+      <router-outlet></router-outlet> 
+    </div>
+
+    <!-- Footer -->
+    <app-footer class="footer"></app-footer>
   </div>
-  <app-footer class="footer"></app-footer>
-</div>
+</body>
+</html>

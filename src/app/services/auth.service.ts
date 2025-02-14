@@ -50,13 +50,4 @@ export class AuthService {
     return sessionStorage.getItem('refresh_token');
   }
 
-
-  uploadPaper(file: File): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    });
-    const formData = new FormData();
-    formData.append("file", file);
-    return this.http.post(`${this.apiUrl}/papers/upload`, formData);
-  }
 }

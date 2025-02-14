@@ -46,7 +46,6 @@ import { MatRadioModule } from '@angular/material/radio';
     AboutJournalComponent,
     LoginComponent,
     AfiliatedSocietyComponent,
-    DummySubmitComponent,
     UploadManuscriptComponent,
     SubmitManuscriptDetailsComponent,
     SubmitManuscriptInstitutionDetailsComponent,

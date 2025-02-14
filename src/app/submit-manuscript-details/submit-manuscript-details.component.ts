@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ManuscriptService } from '../services/manuscript-details.service';  // Import the ManuscriptService
+
 @Component({
   selector: 'app-submit-manuscript-details',
   templateUrl: './submit-manuscript-details.component.html',
@@ -10,7 +12,11 @@ export class SubmitManuscriptDetailsComponent implements OnInit {
   articleForm: FormGroup;
   articleTypes = ['Research Article', 'Review Article', 'Case Report'];
 
-  constructor(private fb: FormBuilder,private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private manuscriptService: ManuscriptService  // Inject ManuscriptService
+  ) {
     this.articleForm = this.fb.group({
       articleType: ['', Validators.required],
       title: ['', [Validators.required, Validators.maxLength(500)]],
@@ -26,16 +32,17 @@ export class SubmitManuscriptDetailsComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onSubmit() {
-    // if (this.articleForm.valid) {
-    //   console.log('Form Data:', this.articleForm.value);
-    // } else {
-    //   alert('Please fill all required fields.');
-    // }
-    this.router.navigate(['/submit-manuscript/institutional-details']);
-  }
+    if (this.articleForm.valid) {
+      // Save the form data using ManuscriptService
+      this.manuscriptService.saveManuscriptData(this.articleForm.value);
 
+      // Navigate to the next step
+      this.router.navigate(['/submit-manuscript/institutional-details']);
+    } else {
+      alert('Please fill all required fields.');
+    }
+  }
 }

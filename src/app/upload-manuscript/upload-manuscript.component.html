@@ -1,37 +1,37 @@
 <div class="upload-container">
-    <div class="instructions">
-      <h3>INSTRUCTIONS FOR UPLOADING DOCUMENTS:</h3>
-      <ul>
-        <li>Add file using drag and drop or by selecting the file in the gray box provided below. Please note you can upload only one file at a time.</li>
-        <li>Files uploaded successfully will appear at the bottom under table 'Uploaded Files'. You may click on the eye icon to preview the file.</li>
-        <li>Select the appropriate File Type for each document from the dropdown list.</li>
-        <li>You can upload only 1 First page and 1 Main article file in the system. Please upload only the latest document under these file types.</li>
-        <li>For Figures and videos, please mention the legends in 'LEGEND' column.</li>
-        <li>Add order number to the file using the 'FILE ORDER' column.</li>
-      </ul>
-      <p class="important">
-        IMPORTANT: DO NOT upload the revised manuscript file as a new file or under any other file type to avoid incorrect manuscript file being processed further.
-      </p>
-    </div>
+  <div class="instructions">
+    <h3>INSTRUCTIONS FOR UPLOADING DOCUMENTS:</h3>
+    <ul>
+      <li>Add file using drag and drop or by selecting the file in the gray box provided below. Please note you can upload only one file at a time.</li>
+      <li>Files uploaded successfully will appear at the bottom under table 'Uploaded Files'. You may click on the eye icon to preview the file.</li>
+      <li>Select the appropriate File Type for each document from the dropdown list.</li>
+      <li>You can upload only 1 First page and 1 Main article file in the system. Please upload only the latest document under these file types.</li>
+      <li>For Figures and videos, please mention the legends in 'LEGEND' column.</li>
+      <li>Add order number to the file using the 'FILE ORDER' column.</li>
+    </ul>
+    <p class="important">
+      IMPORTANT: DO NOT upload the revised manuscript file as a new file or under any other file type to avoid incorrect manuscript file being processed further.
+    </p>
+  </div>
 
-    <div 
-      class="drop-zone" 
-      (dragover)="onDragOver($event)" 
-      (drop)="onDrop($event)"
-      (click)="fileInput.click()"
-    >
-      <div class="drop-zone-content">
-        <span class="plus-icon">+</span>
-        <p>Drag and drop file here, or click to select file</p>
-      </div>
+  <div 
+    class="drop-zone" 
+    (dragover)="onDragOver($event)" 
+    (drop)="onDrop($event)"
+    (click)="fileInput.click()"
+  >
+    <div class="drop-zone-content">
+      <span class="plus-icon">+</span>
+      <p>Drag and drop file here, or click to select file</p>
     </div>
-    <input
-      #fileInput
-      type="file"
-      (change)="onFileSelected($event)"
-      accept=".doc,.docx"
-      style="display: none"
-    >
+  </div>
+  <input
+    #fileInput
+    type="file"
+    (change)="onFileSelected($event)"
+    accept=".doc,.docx"
+    style="display: none"
+  >
 
     <div class="uploaded-files" *ngIf="uploadedFiles.length">
       <h4>Uploaded Files</h4>

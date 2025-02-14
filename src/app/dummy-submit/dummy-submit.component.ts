@@ -17,10 +17,10 @@ export class DummySubmitComponent implements OnInit {
   onFileSelected(event: any) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      this.authService.uploadPaper(file).subscribe(response => {
-        console.log("File uploaded successfully", response);
-      });
-    }
+      
+        console.log("File uploaded successfully");
+ 
+  }
   }
 
 }
