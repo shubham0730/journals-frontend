@@ -1,18 +1,129 @@
 .table-container {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 16px;
+  background: white;
+
+  .table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 6px 10px;
+      gap: 8px;
+
+      .filter-icon {
+        font-size: 20px;
+        color: black;
+      }
+
+      .search-input {
+        border: none;
+        outline: none;
+        font-size: 14px;
+        width: 220px;
+      }
+    }
+  }
+
+  .custom-table {
     width: 100%;
-    margin: 20px auto;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+
+    th {
+      background-color: rgb(250, 218, 122);
+      color: black;
+      text-align: left;
+      padding: 14px;
+      font-weight: 600;
+      border: 1px solid #ddd;
+      font-size: 16px;
+    }
+
+    td {
+      padding: 10px;
+      background: white;
+      border: 1px solid #ddd;
+      color: black;
+    }
+
+    .editable-input {
+      width: 100%;
+      padding: 4px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .table-text {
+      color: black;
+      font-size: 14px;
+    }
+
+    .actions-cell {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    mat-icon {
+      font-size: 22px;
+      color: black;
+    }
+
+    button:hover mat-icon {
+      color: rgb(169, 22, 22);
+    }
   }
-  
-  .filter-field {
-    width: 100%;
-    margin-bottom: 10px;
-  }
-  
-  .mat-elevation-z8 {
-    background: white;
-  }
-  
-  button {
-    margin-right: 5px;
-  }
-  
+}
+.btn-custom-outline {
+  color: black !important;
+  background-color: white !important;
+  border: 1px solid black !important;
+  padding: 12px 24px;
+  margin: 5px;
+  border-radius: 6px;
+  transition: all 0.3s ease-in-out;
+  font-size: 14px;
+}
+
+.btn-custom-outline-primary {
+  color: white !important;
+  background-color: rgb(169, 22, 22) !important;
+  border: 1px solid white !important;
+  padding: 12px 24px;
+  margin: 5px;
+  border-radius: 6px;
+  transition: all 0.3s ease-in-out;
+  font-size: 14px;
+}
+
+.btn-custom-outline:hover {
+  background-color: black !important;
+  color: white !important;
+  border: 1px solid white !important;
+}
+
+.btn-custom-outline-primary:hover {
+  background-color: black !important;
+  color: white !important;
+  border: 1px solid white !important;
+}
+

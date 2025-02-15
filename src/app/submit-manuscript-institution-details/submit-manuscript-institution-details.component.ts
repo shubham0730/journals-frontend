@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Router } from '@angular/router';
-import { ManuscriptService } from '../services/manuscript-details.service';  // Import the ManuscriptService
+import { ManuscriptService } from '../services/manuscript-details.service';  
 
 @Component({
   selector: 'app-submit-manuscript-institution-details',
@@ -10,44 +10,17 @@ import { ManuscriptService } from '../services/manuscript-details.service';  // 
   styleUrls: ['./submit-manuscript-institution-details.component.scss']
 })
 export class SubmitManuscriptInstitutionDetailsComponent implements OnInit {
-  authors = [
-    {
-      title: "Mr.",
-      firstName: 'Shubham',
-      middleName: '',
-      lastName: 'Shinde',
-      email: 'shubhamss0730@gmail.com',
-      department: 'Therapeutics',
-      institution: 'RGIT',
-      orcid: "",
-      state: "Maharashtra",
-      country: "India",
-      isCorresponding: true
-    },
-    {
-      title: "Mr.",
-      firstName: 'Adwait',
-      middleName: 'V',
-      lastName: 'Laud',
-      email: 'adwait.laud@example.com',
-      department: 'Biotechnology',
-      institution: 'Harvard',
-      orcid: "",
-      state: "Maharashtra",
-      country: "India",
-      isCorresponding: false
-    }
-  ];
-
+  authors: any[] = []; // List of authors
   coAuthorForm: FormGroup;
+  editingIndex: number | null = null; // Track author being edited
+  showModal = false;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private manuscriptService: ManuscriptService  // Inject the ManuscriptService
+    private manuscriptService: ManuscriptService  
   ) {
     this.coAuthorForm = this.fb.group({
-      searchEmail: [''],
       email: ['', [Validators.required, Validators.email]],
       title: ['', Validators.required],
       firstName: ['', Validators.required],
@@ -55,58 +28,107 @@ export class SubmitManuscriptInstitutionDetailsComponent implements OnInit {
       lastName: ['', Validators.required],
       department: ['', Validators.required],
       institution: ['', Validators.required],
-      orcid: [''],
-      isCorresponding: ['false']
+      orcid: ['', [Validators.pattern(/^\d{4}-\d{4}-\d{4}-\d{4}$/)]],
+      state: ['', Validators.required],  
+      country: ['', Validators.required], 
+      isCorresponding: [false]
     });
   }
 
   ngOnInit(): void {}
 
-  // Method to add a co-author to the list
-  addCoAuthor() {
-    if (this.coAuthorForm.valid) {
-      const newAuthor = this.coAuthorForm.value;
-      newAuthor.isCorresponding = newAuthor.isCorresponding === 'true';
-      this.authors.push(newAuthor);
-      this.coAuthorForm.reset();
-      let modal = document.getElementById('addCoAuthorModal') as any;
-      modal?.classList.remove('show');
+  // Open modal for Add/Edit
+  openModal(isEdit = false, index: number | null = null) {
+    this.showModal = true;
+    this.editingIndex = index;
+    
+    if (isEdit && index !== null) {
+      const author = this.authors[index];
+      this.coAuthorForm.setValue({
+        title: author.title,
+        firstName: author.firstName,
+        middleName: author.middleName,
+        lastName: author.lastName,
+        email: author.email,
+        department: author.department,
+        institution: author.institution,
+        state: author.state,
+        country: author.country,
+        orcid: author.orcid,
+        isCorresponding: author.isCorresponding
+      });
     } else {
-      alert('Please fill all required fields!');
+      this.resetForm();
     }
   }
 
-  // Method to edit an author (for now, just an alert)
+  // Edit an existing author (Used in HTML)
   editAuthor(index: number) {
-    alert(`Editing author: ${this.authors[index].firstName}`);
+    this.openModal(true, index);
   }
 
-  // Method to delete an author
+  // Save or update author
+  saveCoAuthor() {
+    if (this.coAuthorForm.valid) {
+      const authorData = { ...this.coAuthorForm.value };
+      authorData.isCorresponding = !!authorData.isCorresponding; // Ensure boolean
+
+      if (this.editingIndex !== null) {
+        this.authors[this.editingIndex] = authorData; // Update author
+      } else {
+        this.authors.push(authorData); // Add new author
+      }
+
+      this.closeModal();
+    } else {
+      alert('Please fill all required fields correctly!');
+    }
+  }
+
+  // Close modal and reset form
+  closeModal() {
+    this.showModal = false;
+    this.resetForm();
+  }
+
+  // Reset form values
+  resetForm() {
+    this.coAuthorForm.reset({
+      title: '',
+      firstName: '',
+      middleName: '',
+      lastName: '',
+      email: '',
+      department: '',
+      institution: '',
+      state: '',
+      country: '',
+      orcid: '',
+      isCorresponding: false
+    });
+    this.editingIndex = null;
+  }
+
+  // Delete an author
   deleteAuthor(index: number) {
     if (confirm(`Are you sure you want to delete ${this.authors[index].firstName}?`)) {
       this.authors.splice(index, 1);
     }
   }
 
-  // Drag-and-drop functionality to reorder authors
+  // Drag-and-drop reordering
   drop(event: CdkDragDrop<any[]>) {
     moveItemInArray(this.authors, event.previousIndex, event.currentIndex);
   }
 
-  // Method to save reordered authors
-  saveReorderedAuthors() {
-    console.log('Updated Order:', this.authors);
-  }
-
-  // Method to save details and navigate to the next page
+  // Save and navigate
   saveDetails() {
-    // Save the authors' data using the ManuscriptService
-    this.manuscriptService.setAuthorsData(this.authors); // Ensure this method is defined in your service
-    this.router.navigate(['/submit-manuscript/complete-submission']);
+    this.manuscriptService.setAuthorsData(this.authors);
+    this.router.navigate(['submit-manuscript/upload']);
   }
 
-  // Method to go back to the previous page
+  // Navigate back
   goBack() {
-    this.router.navigate(['/submit-manuscript/details']); // Replace with the actual route you want to go back to
+    this.router.navigate(['/submit-manuscript/details']);
   }
 }

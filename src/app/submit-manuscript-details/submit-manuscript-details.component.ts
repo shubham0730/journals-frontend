@@ -45,4 +45,5 @@ export class SubmitManuscriptDetailsComponent implements OnInit {
       alert('Please fill all required fields.');
     }
   }
+  
 }

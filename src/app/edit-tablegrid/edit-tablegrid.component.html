@@ -1,41 +1,40 @@
 <div class="table-container">
-    <mat-form-field class="filter-field">
-      <mat-label>Filter</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Search">
-    </mat-form-field>
-  
-    <button mat-raised-button color="primary" (click)="addRow()">Add Row</button>
-    <button mat-raised-button color="accent" (click)="refreshTable()">Refresh</button>
-  
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-      <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
-        <th mat-header-cell *matHeaderCellDef>{{ column | uppercase }}</th>
-        <td mat-cell *matCellDef="let row">
-          <ng-container *ngIf="!row.isEditing; else editMode">
-            {{ row[column] }}
-          </ng-container>
-          <ng-template #editMode>
-            <input matInput [(ngModel)]="row[column]">
-          </ng-template>
-        </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef>Actions</th>
-        <td mat-cell *matCellDef="let row">
-          <button mat-icon-button (click)="toggleEdit(row)">
-            <mat-icon>{{ row.isEditing ? 'save' : 'edit' }}</mat-icon>
-          </button>
-          <button mat-icon-button color="warn" (click)="deleteRow(row)">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-  
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-  
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  <div class="table-header">
+    <div class="search-box">
+      <mat-icon class="filter-icon">search</mat-icon>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Search table" class="search-input">
+    </div>
+
+    <button *ngIf="isEditable" class="btn-custom-outline-primary" (click)="addRow()">
+      <mat-icon>add</mat-icon> Add Row
+    </button>
   </div>
-  
+
+  <table mat-table [dataSource]="dataSource" class="custom-table" matSort>
+
+    <!-- Dynamic Columns -->
+    <ng-container *ngFor="let column of tableColumns" [matColumnDef]="column">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ column | titlecase }} </th>
+      <td mat-cell *matCellDef="let row">
+        <input *ngIf="row.isEditing && isEditable" [(ngModel)]="row[column]" class="editable-input">
+        <span *ngIf="!row.isEditing || !isEditable" class="table-text">{{ row[column] }}</span>
+      </td>
+    </ng-container>
+
+    <!-- Actions Column (Only if Editable) -->
+    <ng-container matColumnDef="actions" *ngIf="isEditable">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let row" class="actions-cell">
+        <button mat-icon-button (click)="toggleEdit(row)">
+          <mat-icon>{{ row.isEditing ? 'save' : 'edit' }}</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteRow(row)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

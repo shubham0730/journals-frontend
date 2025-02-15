@@ -35,6 +35,8 @@ import { AuthInterceptor } from './services/auth.interceptor';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { CommonModule } from '@angular/common';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +55,7 @@ import { MatInputModule } from '@angular/material/input';
     SubmitManuscriptDetailsComponent,
     EditTablegridComponent,
     CompleteSubmitComponent,
-    SubmitManuscriptInstitutionDetailsComponent
+    SubmitManuscriptInstitutionDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,7 +73,11 @@ import { MatInputModule } from '@angular/material/input';
     DragDropModule,
     MatFormFieldModule,
     MatIconModule,
-    MatInputModule
+    MatInputModule,
+    CommonModule
+  ],
+  exports: [
+    EditTablegridComponent // Exporting it so it can be used in other components
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
