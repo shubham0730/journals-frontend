@@ -1,0 +1,41 @@
+<div class="table-container">
+    <mat-form-field class="filter-field">
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Search">
+    </mat-form-field>
+  
+    <button mat-raised-button color="primary" (click)="addRow()">Add Row</button>
+    <button mat-raised-button color="accent" (click)="refreshTable()">Refresh</button>
+  
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+        <th mat-header-cell *matHeaderCellDef>{{ column | uppercase }}</th>
+        <td mat-cell *matCellDef="let row">
+          <ng-container *ngIf="!row.isEditing; else editMode">
+            {{ row[column] }}
+          </ng-container>
+          <ng-template #editMode>
+            <input matInput [(ngModel)]="row[column]">
+          </ng-template>
+        </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-icon-button (click)="toggleEdit(row)">
+            <mat-icon>{{ row.isEditing ? 'save' : 'edit' }}</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteRow(row)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+  
