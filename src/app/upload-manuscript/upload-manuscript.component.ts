@@ -22,7 +22,7 @@ export class UploadManuscriptComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef;
 
   uploadedFiles: UploadedFile[] = [];
-
+  fileDetails: any[] = [];
   constructor(
     private router: Router,
     private uploadService: UploadPaperService,
