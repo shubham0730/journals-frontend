@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { UploadPaperService } from '../services/upload-paper.service';
+import { ManuscriptService } from '../services/manuscript-details.service';
 
 interface UploadedFile {
   id: number;
@@ -24,7 +25,8 @@ export class UploadManuscriptComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private uploadService: UploadPaperService
+    private uploadService: UploadPaperService,
+    private manuscriptService: ManuscriptService
   ) {}
 
   ngOnInit() {}
@@ -92,54 +94,70 @@ export class UploadManuscriptComponent implements OnInit {
   }
 
   saveAndContinue() {
-    if (this.uploadedFiles.length === 0) {
+    if (!this.uploadedFiles.length) {
       alert('Please upload at least one file before proceeding.');
       return;
     }
 
-    const files: File[] = this.uploadedFiles
-      .map((f) => f.fileData)
-      .filter((file): file is File => file !== undefined);
+    // Extract valid files along with fileName & fileOrder
+    const filesWithMetadata = this.uploadedFiles
+      .filter((f) => f.fileData instanceof File) // Ensure fileData is a File object
+      .map((f) => ({
+        file: f.fileData as File,
+        fileName: f.fileName,
+        fileOrder: f.fileOrder,
+        fileDesc: f.legend,
+        fileType: f.fileType,
+      }));
+    const fileOrderMap: Record<
+      string,
+      { fileOrder: number; fileDesc: string; fileType: string }
+    > = {};
 
-    if (files.some((file) => !(file instanceof File))) {
-      alert('Some file data is invalid.');
-      return;
-    }
-    if (files.some((file) => !file || !(file instanceof File))) {
+    filesWithMetadata.forEach(({ fileName, fileOrder, fileDesc, fileType }) => {
+      fileOrderMap[fileName] = { fileOrder, fileDesc, fileType };
+    });
+
+    // Convert to JSON if needed
+    const fileOrderJson = fileOrderMap;
+    if (filesWithMetadata.length === 0) {
       alert('Some file data is missing or invalid.');
       return;
     }
 
-    const metadata = this.uploadedFiles.map((file) => ({
-      // title: file.title || "Untitled",
-      // author: file.author || "Unknown",
-      // abstractText: file.abstractText || "No abstract available",
-      // allAuthors: file.allAuthors || ""
-      title: 'Untitled',
-      author: 'Unknown',
-      abstractText: 'No abstract available',
-      allAuthors: '',
-    }));
+    // Retrieve manuscript & author metadata
+    const manuscriptMetadata = this.manuscriptService.getManuscriptData() || {};
+    const authorMetadata = this.manuscriptService.getAuthorsData() || [];
 
+    // Combine metadata
+    const mergedData = {
+      manuscript: manuscriptMetadata,
+      authors: authorMetadata,
+      fileOrder: fileOrderJson,
+    };
+
+    // Prepare FormData
     const formData = new FormData();
-    files.forEach((file) => formData.append('files', file));
-    formData.append('metadata', JSON.stringify(metadata));
+    filesWithMetadata.forEach(({ file }) => {
+      formData.append('files', file);
+    });
+    formData.append('metadata', JSON.stringify(mergedData));
 
-    this.uploadService.uploadPapers(formData).subscribe(
-      (response) => {
+    // Upload files
+    this.uploadService.uploadPapers(formData).subscribe({
+      next: (response) => {
         console.log('Upload successful:', response);
         alert('Files uploaded successfully!');
         this.router.navigate(['/submit-manuscript/details']);
       },
-      (error) => {
+      error: (error) => {
         console.error('Upload error:', error);
         alert('Upload failed. Please try again.');
-      }
-    );
+      },
+    });
   }
 
   returnHome() {
-    console.log('Saving files:', this.uploadedFiles);
-    this.router.navigate(['/submit-manuscript/details']);
+    this.router.navigate(['submit-manuscript/institutional-details']);
   }
 }

@@ -17,6 +17,9 @@ export class ManuscriptService {
     this.authorsData = authors;
   }
 
+  getAuthorsData(){
+    return this.authorsData
+  }
   // Get manuscript data
   getManuscriptData() {
     return this.manuscriptData;

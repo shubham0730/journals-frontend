@@ -3,6 +3,16 @@
     font-family: Arial, sans-serif;
   }
 
+  h3 {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  h6 {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
   .instructions {
     margin-bottom: 20px;
   }
@@ -79,18 +89,42 @@
   }
   
 
-  .exit-btn {
-    background-color: #6c757d;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    cursor: pointer;
+  .btn-custom-outline {
+    color: black !important;
+    background-color: white !important;
+    border: 1px solid black !important;
+    padding: 12px 24px;
+    margin: 5px;
+    border-radius: 6px;
+    transition: all 0.3s ease-in-out;
+    font-size: 14px;
+  }
+  
+  .btn-custom-outline-primary {
+    color: white !important;
+    background-color: rgb(169, 22, 22) !important;
+    border: 1px solid white !important;
+    padding: 12px 24px;
+    margin: 5px;
+    border-radius: 6px;
+    transition: all 0.3s ease-in-out;
+    font-size: 14px;
+  }
+  
+  .btn-custom-outline:hover {
+    background-color: black !important;
+    color: white !important;
+    border-color: black !important;
+  }
+  
+  .alert-info {
+    background-color: rgb(255, 254, 203) !important;
+    border-color: rgb(252, 245, 150) !important;
+    color: black !important;
   }
 
-  .save-btn {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    cursor: pointer;
+  .btn-custom-outline-primary:hover {
+    background-color: black !important;
+    color: white !important;
+    border-color: black !important;
   }

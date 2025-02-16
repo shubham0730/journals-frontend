@@ -21,7 +21,7 @@ export class SubmitManuscriptDetailsComponent implements OnInit {
       articleType: ['', Validators.required],
       title: ['', [Validators.required, Validators.maxLength(500)]],
       runningTitle: ['', Validators.maxLength(500)],
-      abstract: ['', Validators.maxLength(3500)],
+      abstractText: ['', Validators.maxLength(3500)],
       wordCount: [''],
       bwFigures: [''],
       colorFigures: [''],
